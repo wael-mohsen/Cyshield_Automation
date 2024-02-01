@@ -1,0 +1,17 @@
+[
+  {
+    "userId" : "TestUserID",
+    "password" : "TestPass",
+    "name" : "TestName",
+    "address" : "TestAddress",
+    "zip" : "12345",
+    "email" : "TestEmail@test.com",
+    "about" : "AboutTest",
+    "InvaliduserId" : "ID",
+    "Invalidpassword" : "Pass",
+    "Invalidname" : "1234",
+    "Invalidaddress" : "",
+    "Invalidzip" : "TEST",
+    "Invalidemail" : "Test.com"
+  }
+]
