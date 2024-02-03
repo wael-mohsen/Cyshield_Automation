@@ -5,15 +5,21 @@ import Data.JsonReader;
 import Pages.IntroductionPage;
 import Pages.RegisterFormPage;
 import Pages.TestScenariosPage;
+import com.google.common.collect.ImmutableMap;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.Listeners;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
+import org.testng.Assert;
 
 import java.io.IOException;
+
+import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 
 public class ValidRegistration {
     JSONObject registrationData;
@@ -21,7 +27,8 @@ public class ValidRegistration {
     WebDriver chromeDriver = driver.initiateDriver();
     JsonReader jsonReader = new JsonReader();
 
-    @Step("Validate that the Page opened Successfully")
+    @Feature("Valid Registration")
+    @Description("Validate that the Page opened Successfully")
     @Test(priority = 1)
     public void testScenarios_click() {
         IntroductionPage introductionPage = new IntroductionPage(chromeDriver);
@@ -29,12 +36,11 @@ public class ValidRegistration {
             chromeDriver.manage().deleteAllCookies();
             chromeDriver.quit();
             WebDriver chromeDriver = driver.initiateDriver();
-            chromeDriver.navigate().refresh();
         }
         introductionPage.testScenariosBtn_Click();
     }
 
-    @Step("Click on Register Form Button")
+    @Description("Click on Register Form Button")
     @Test(priority = 2)
     public void registerForm_click() {
         TestScenariosPage testScenariosPage = new TestScenariosPage(chromeDriver);
@@ -44,7 +50,7 @@ public class ValidRegistration {
         testScenariosPage.registerFormBtn_Click();
     }
 
-    @Step("Fill the Registration Form with Valid Data and Submit")
+    @Description("Fill the Registration Form with Valid Data and Submit")
     @Test(priority = 3)
     public void fillRegistrationForm_ValidData() throws IOException, ParseException {
         RegisterFormPage registerFormPage = new RegisterFormPage(chromeDriver);
@@ -67,7 +73,7 @@ public class ValidRegistration {
         registerFormPage.isAlertPresent();
     }
 
-    @Step("Quit the driver after the complete the registration")
+    @Description("Quit the driver after the complete the registration")
     @AfterTest
     public void closeBrowser() {
         chromeDriver.quit();

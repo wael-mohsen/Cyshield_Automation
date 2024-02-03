@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="/Users/wael/Downloads/Cyshield_Automation">
+        <classes>
+            <class name="WebAutomationTCs.InvalidRegistration_InvalidAddress">
+                <methods>
+                    <include name="testScenarios_click"/>
+                    <include name="registerForm_click"/>
+                    <include name="fillRegistrationForm_InvalidAddress"/>
+                </methods>
+            </class>
+            <class name="WebAutomationTCs.InvalidRegistration_InvalidEmail">
+                <methods>
+                    <include name="testScenarios_click"/>
+                    <include name="registerForm_click"/>
+                    <include name="fillRegistrationForm_InvalidEmail"/>
+                </methods>
+            </class>
+            <class name="WebAutomationTCs.InvalidRegistration_InvalidName">
+                <methods>
+                    <include name="testScenarios_click"/>
+                    <include name="registerForm_click"/>
+                    <include name="fillRegistrationForm_InvalidName"/>
+                </methods>
+            </class>
+            <class name="WebAutomationTCs.InvalidRegistration_InvalidPassword">
+                <methods>
+                    <include name="testScenarios_click"/>
+                    <include name="registerForm_click"/>
+                    <include name="fillRegistrationForm_InvalidPassword"/>
+                </methods>
+            </class>
+            <class name="WebAutomationTCs.InvalidRegistration_InvalidUserID">
+                <methods>
+                    <include name="testScenarios_click"/>
+                    <include name="registerForm_click"/>
+                    <include name="fillRegistrationForm_InvalidUserID"/>
+                </methods>
+            </class>
+            <class name="WebAutomationTCs.InvalidRegistration_InvalidZip">
+                <methods>
+                    <include name="testScenarios_click"/>
+                    <include name="registerForm_click"/>
+                    <include name="fillRegistrationForm_InvalidZip"/>
+                </methods>
+            </class>
+            <class name="WebAutomationTCs.ValidRegistration">
+                <methods>
+                    <include name="testScenarios_click"/>
+                    <include name="registerForm_click"/>
+                    <include name="fillRegistrationForm_ValidData"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

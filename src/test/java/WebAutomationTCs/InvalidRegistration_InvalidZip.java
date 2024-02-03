@@ -5,9 +5,12 @@ import Drivers.ChromeDriverInit;
 import Pages.IntroductionPage;
 import Pages.RegisterFormPage;
 import Pages.TestScenariosPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-import org.junit.Assert;
+import org.testng.Assert;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
@@ -20,7 +23,8 @@ public class InvalidRegistration_InvalidZip {
     WebDriver chromeDriver = driver.initiateDriver();
     JsonReader jsonReader = new JsonReader();
 
-    //Navigate to Test Scenarios Page
+    @Feature("Invalid Registration")
+    @Description("Validate that the Page opened Successfully")
     @Test(priority = 1)
     public void testScenarios_click() {
         IntroductionPage introductionPage = new IntroductionPage(chromeDriver);
@@ -33,7 +37,7 @@ public class InvalidRegistration_InvalidZip {
         introductionPage.testScenariosBtn_Click();
     }
 
-    //Navigate to Test Scenarios Page
+    @Description("Click on Register Form Button")
     @Test(priority = 2)
     public void registerForm_click() {
         TestScenariosPage testScenariosPage = new TestScenariosPage(chromeDriver);
@@ -43,7 +47,7 @@ public class InvalidRegistration_InvalidZip {
         testScenariosPage.registerFormBtn_Click();
     }
 
-    //Fill the Registration Form
+    @Description("Fill the Registration Form with Invalid ZIP Code")
     @Test(priority = 3)
     public void fillRegistrationForm_InvalidZip() throws IOException, ParseException {
         RegisterFormPage registerFormPage = new RegisterFormPage(chromeDriver);
@@ -66,7 +70,7 @@ public class InvalidRegistration_InvalidZip {
         Assert.assertEquals("ZIP code must have numeric characters only", AlertMessage);
     }
 
-    //Close the driver after the complete the registration
+    @Description("Quit the driver after the complete the registration")
     @AfterTest
     public void closeBrowser() {
         chromeDriver.quit();
