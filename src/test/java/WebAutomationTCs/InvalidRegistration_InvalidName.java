@@ -25,6 +25,9 @@ public class InvalidRegistration_InvalidName {
     public void testScenarios_click() {
         IntroductionPage introductionPage = new IntroductionPage(chromeDriver);
         while (!introductionPage.IntroductionPage_IsDisplayed()) {
+            chromeDriver.manage().deleteAllCookies();
+            chromeDriver.quit();
+            WebDriver chromeDriver = driver.initiateDriver();
             chromeDriver.navigate().refresh();
         }
         introductionPage.testScenariosBtn_Click();

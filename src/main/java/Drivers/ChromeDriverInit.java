@@ -20,6 +20,8 @@ public class ChromeDriverInit {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         options.addArguments("enable-automation");
+        options.addArguments("--incognito");
+        options.addArguments("--disable-cache");
         driver = new ChromeDriver(options);
         driver.get("https://testing.todorvachev.com/");
         return driver;
