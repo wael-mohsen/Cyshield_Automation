@@ -1,48 +1,65 @@
 package WebAutomationTCs;
 
 import Data.JsonReader;
-import Drivers.ChromeDriverInit;
+import Drivers.DriverInit;
 import Pages.IntroductionPage;
 import Pages.RegisterFormPage;
 import Pages.TestScenariosPage;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Step;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.testng.Assert;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
 public class InvalidRegistration_InvalidUserID {
     JSONObject registrationData;
-    ChromeDriverInit driver = new ChromeDriverInit();
-    WebDriver chromeDriver = driver.initiateDriver();
+    DriverInit driver = new DriverInit();
+    WebDriver webDriver;
     JsonReader jsonReader = new JsonReader();
+
+    @BeforeTest
+    @Parameters("browser")
+    public void setup(String browser) throws Exception{
+        if(browser.equalsIgnoreCase("Chrome")){
+            webDriver = driver.initiateChromeDriver();
+        } else if (browser.equalsIgnoreCase("Firefox")) {
+            webDriver = driver.initiateFirefoxDriver();
+        }
+
+        IntroductionPage introductionPage = new IntroductionPage(webDriver);
+        while (!introductionPage.IntroductionPage_IsDisplayed()) {
+            webDriver.manage().deleteAllCookies();
+            webDriver.close();
+            if(browser.equalsIgnoreCase("Chrome")){
+                webDriver = driver.initiateChromeDriver();
+            } else if (browser.equalsIgnoreCase("Firefox")) {
+                webDriver = driver.initiateFirefoxDriver();
+            }
+        }
+    }
+
 
     @Feature("Invalid Registration")
     @Description("Validate that the Page opened Successfully")
     @Test(priority = 1)
     public void testScenarios_click() {
-        IntroductionPage introductionPage = new IntroductionPage(chromeDriver);
-        while (!introductionPage.IntroductionPage_IsDisplayed()) {
-            chromeDriver.manage().deleteAllCookies();
-            chromeDriver.quit();
-            WebDriver chromeDriver = driver.initiateDriver();
-            chromeDriver.navigate().refresh();
-        }
+        IntroductionPage introductionPage = new IntroductionPage(webDriver);
         introductionPage.testScenariosBtn_Click();
     }
 
     @Description("Click on Register Form Button")
     @Test(priority = 2)
     public void registerForm_click() {
-        TestScenariosPage testScenariosPage = new TestScenariosPage(chromeDriver);
+        TestScenariosPage testScenariosPage = new TestScenariosPage(webDriver);
         while (!testScenariosPage.TestScenariosPage_IsDisplayed()) {
-            chromeDriver.navigate().refresh();
+            webDriver.navigate().refresh();
         }
         testScenariosPage.registerFormBtn_Click();
     }
@@ -50,9 +67,9 @@ public class InvalidRegistration_InvalidUserID {
     @Description("Fill the Registration Form with Invalid UserID")
     @Test(priority = 3)
     public void fillRegistrationForm_InvalidUserID() throws IOException, ParseException {
-        RegisterFormPage registerFormPage = new RegisterFormPage(chromeDriver);
+        RegisterFormPage registerFormPage = new RegisterFormPage(webDriver);
         while (!registerFormPage.RegisterFormPage_IsDisplayed()) {
-            chromeDriver.navigate().refresh();
+            webDriver.navigate().refresh();
         }
         registrationData = jsonReader.registrationData();
         registerFormPage.userId_Set((String) registrationData.get("InvaliduserId"));
@@ -73,6 +90,6 @@ public class InvalidRegistration_InvalidUserID {
     @Description("Quit the driver after the complete the registration")
     @AfterTest
     public void closeBrowser() {
-        chromeDriver.quit();
+        webDriver.quit();
     }
 }
